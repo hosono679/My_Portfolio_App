@@ -27,12 +27,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-
+SECRET_KEY = os.environ.get('django-insecure-dm$s-1xq@g*-*ry&ilm$jhoy(y(59z!d(+&)@a9l*)@w1dr=fr')
 if not DEBUG:
-    SECRET_KEY = os.environ['django-insecure-dm$s-1xq@g*-*ry&ilm$jhoy(y(59z!d(+&)@a9l*)@w1dr=fr']
+    SECRET_KEY = os.environ.get('django-insecure-dm$s-1xq@g*-*ry&ilm$jhoy(y(59z!d(+&)@a9l*)@w1dr=fr')
     import django_heroku #追加
     django_heroku.settings(locals())
 # Application definition
+try:
+    from .local_settings import *
+except ImportError:
+    pass
 
 INSTALLED_APPS = [
     'django.contrib.admin',
