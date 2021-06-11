@@ -14,11 +14,21 @@ from pathlib import Path
 import os
 import dj_database_url
 import sys
-from .settings import *
 import environ
+
+
+BASE_DIR = environ.Path(__file__) - 2
+
 env = environ.Env()
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
+READ_ENV_FILE = env.bool('DJANGO_READ_ENV_FILE', default=False)
+if READ_ENV_FILE:
+    env_file = str(BASE_DIR.path('.env'))
+    env.read_env(env_file)
+
+SECRET_KEY = env.read_env('SECRET_KEY')
+
+
 DATABASES = { 'default': {
  'ENGINE': 'ango.db.backends.postgresql_psycopg2',
  'NAME': 'myproject',
@@ -40,10 +50,7 @@ DEBUG = False
 
 
 # Application definition
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -71,7 +78,7 @@ ROOT_URLCONF = 'stsns.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/"templates"],
+        'DIRS': [BASE_DIR + "/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -95,12 +102,7 @@ WSGI_APPLICATION = 'stsns.wsgi.application'
 db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
 DATABASES['default'].update(db_from_env)
 
-ALLOWED_HOSTS = ['*']
-SECRET_KEY = env("SEACRET_KEY")
-if not DEBUG:
-    SECRET_KEY = os.environ.get('django-insecure-dm$s-1xq@g*-*ry&ilm$jhoy(y(59z!d(+&)@a9l*)@w1dr=fr')
-    import django_heroku #追加
-    django_heroku.settings(locals())
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
