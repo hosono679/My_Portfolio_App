@@ -21,7 +21,7 @@ BASE_DIR = environ.Path(__file__) - 2
 
 env = environ.Env()
 
-READ_ENV_FILE = env.bool('DJANGO_READ_ENV_FILE', default=False)
+READ_ENV_FILE = env.bool('DJANGO_READ_ENV_FILE', default=True)
 if READ_ENV_FILE:
     env_file = str(BASE_DIR.path('.env'))
     env.read_env(env_file)
