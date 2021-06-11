@@ -13,9 +13,18 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+import sys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+DATABASES = { 'default': {
+ 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+ 'NAME': 'myproject',
+ 'USER': 'myprojectuser',
+ 'PASSWORD': 'password',
+ 'HOST': 'localhost',
+ 'PORT': '',
+ }
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -78,21 +87,13 @@ WSGI_APPLICATION = 'stsns.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = { 'default': {
- 'ENGINE': 'django.db.backends.postgresql_psycopg2',
- 'NAME': 'myproject',
- 'USER': 'myprojectuser',
- 'PASSWORD': 'password',
- 'HOST': 'localhost',
- 'PORT': '',
- }
-}
+
 
 db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
 DATABASES['default'].update(db_from_env)
 
 ALLOWED_HOSTS = ['*']
-SECRET_KEY = os.environ.get('django-insecure-dm$s-1xq@g*-*ry&ilm$jhoy(y(59z!d(+&)@a9l*)@w1dr=fr')
+SECRET_KEY = ('django-insecure-dm$s-1xq@g*-*ry&ilm$jhoy(y(59z!d(+&)@a9l*)@w1dr=fr')
 if not DEBUG:
     SECRET_KEY = os.environ.get('django-insecure-dm$s-1xq@g*-*ry&ilm$jhoy(y(59z!d(+&)@a9l*)@w1dr=fr')
     import django_heroku #追加
