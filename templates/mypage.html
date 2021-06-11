@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+
+<!-- コンテンツ -->
+{% block content %}
+<div class="container">
+  <h1>My page</h1>
+  <hr>
+<h5></h5>
+{% if authentication  == "success" %}
+<h3>■　禁煙&煙草貯金情報<br>（ゲストユーザーでのお試し 自由に試そう）
+  
+</h3>
+{% else %}
+<h3>■　禁煙&煙草貯金情報</h3>
+{% endif %}
+<hr>
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <h4>●合計お酒節約量</h4>
+      
+      <h1>{{ value }}</h1>
+      
+      <tr>
+      <td>今回のお酒節約量(500mlを一本250円の計算)
+        <form method="POST">
+          {% csrf_token %}
+          {{ form.how_many_liquor }}×250円
+      </td>
+        <td><button type="submit" class="p-2">送信</button></td>
+        </form>
+    </tr>
+  </tr>
+  </tbody>
+</table>
+
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <h4>●合計タバコ節約量</h4>
+      <h1>{{ value2 }}</h1>
+    <tr>
+      <td>今回の煙草節約量(一箱を550円の計算)
+        <form method="POST">
+          {% csrf_token %}
+          {{ c_form.how_many_cigalettes }}×550円
+      </td>
+      </td>
+      <td><button type="submit" class="p-2">送信</button></td>
+    </form>
+    </tr>
+  </tr>
+  </tbody>
+</table>
+{% if authentication  == "success" %}
+<h3>●合計貯金量(ゲストユーザーなのでランキングには計上されません)</h3>
+{% else %}
+<h3>●合計貯金量</h3>
+{% endif %}
+<h1>{{ all_value }}円節約</h1>
+
+
+<h5 class="pt-5 mb-5"><d">●マイルストーン(合計貯金金額により買えるものが表示されていきます！)</h7>
+<div class="d-flex flex-column bd-highlight pt-3">
+{% if all_value > 500 %}
+<h5 class="text-primary">【★達成】昼食代を貯めることができました(500円)</h5>
+{% else %}
+<h5>【未達成】500円を目指そう！！</h5>
+{% endif %}
+
+{% if all_value > 2000 %}
+<h5 class="text-primary  bd-highlight">【★達成】本一冊分貯めることができました(2000円)</h5>
+{% else %}
+<h5>【未達成】2000円を目指そう！！</h5>
+{% endif %}
+
+{% if all_value > 5000 %}
+<h5 class="text-primary  bd-highlight">【★達成】ゲームソフト代を貯めることができました(5000円)</h5>
+{% else %}
+<h5>【未達成】5000円を目指そう！！</h5>
+{% endif %}
+
+{% if all_value > 10000 %}
+<h5 class="text-primary bd-highlight">【★達成】洋服代を貯めることができました(10000円)</h5>
+{% else %}
+<h5>【未達成】10000円を目指そう！！</h5>
+{% endif %}
+
+{% if all_value > 50000 %}
+<h5 class="text-primary bd-highlight">【★達成】旅行代を貯めることができました(50000円)</h5>
+{% else %}
+<h5>【未達成】50000円を目指そう！！</h5>
+{% endif %}
+
+{% if all_value > 100000 %}
+<h5 class="text-primary bd-highlight">【★達成】便利な家電代を貯めることができました(100000円)</h5>
+{% else %}
+<h5>【未達成】100000円を目指そう！！</h5>
+{% endif %}
+</div>
+<hr>
+  <div class="row">
+    <div class="col"><h4>■　登録情報</h4></div>
+    {% if authentication  == "success" %}
+    <div class="col"><h7>(更新不可)</h7></div>
+    {% else %}
+    <div class="col text-right "><a href="{% url 'stsnsapp:user_update' user.pk %}">更新</a></div>
+
+    {% endif %}
+  </div>
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+      <tr>
+        <td>ユーザー名</td>
+        <td>{{ user.username }}</td>
+      </tr>
+      <tr>
+ 
+        <td>メールアドレス</td>
+        {% if authentication  == "success" %}
+        <td></td>
+
+        {% else %}
+        <td>{{ user.email }}</td>
+        {% endif %}
+      </tr>
+      <tr>
+    </tbody>
+    
+  </table>
+  {% if authentication  == "success" %}
+  <div class="col"><h7>(削除不可)</h7></div>
+  {% else %}
+  <div class="col text-right "><a href="{% url 'stsnsapp:user_delete' user.pk %}">削除</a></div>
+
+  {% endif %}
+</div>
+{% endblock %}

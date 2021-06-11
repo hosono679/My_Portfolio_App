@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="alert alert-primary" role="alert">
+    <h3>掲示板</h3>
+    <a href="{% url 'stsnsapp:create' %}" class="btn btn-warning btn-lg">書き込みをする</a>
+</div>
+<div class="container">
+  {% for item in object_list %}
+<div class="alert alert-success" role="alert">
+    <p>タイトル:{{item.title}}</p>
+    <p>投稿者:{{item.author}}</p>
+    <p>投稿日時:{{item.date}}</p>
+    <a href="" class="btn btn-primary btn-lg disabled">いいね {{item.good}}</a>
+    <a href="{% url 'stsnsapp:detail' item.pk %}" class="btn btn-secondary btn-lg">詳細画面へ</a>
+  </div>
+  {% endfor %}
+  </div>
+{% endblock content %}

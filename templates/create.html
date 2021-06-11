@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+<p>●タイトル:<input type="text" name="title" class="p-2"></p>
+<p>●本文:<input type="text" name="content" class="p-5"></p>
+<p><input type="hidden" name="author" value="{{user.username}}"></p>
+
+<input type="submit" value="作成する" class="p-2">
+
+</form>
+</div>
+
+</form>
+{% endblock content %}

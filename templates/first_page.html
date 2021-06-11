@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+    
+<main>
+  <h1 class="visually-hidden">Heroes examples</h1>
+
+  <div class=" px-4 py-5 my-5 text-center">
+    {% load static %}
+    <img class="d-block mx-auto mb-4" src="{% static 'aaa.jpg' %}" alt="" width="50%" height="">
+    <h1 class="display-5 fw-bold">気楽に減酒、減煙しませんか？</h1>
+    <div class="col-lg-6 mx-auto">
+      <h4 class="mt-4 mb-4">コロナウイルスの流行により喫煙量、飲酒量が増加したという方が約三割程度いるそうです。自粛によるストレスやリモートワークなどによる余暇の増加やお店で飲むよりも安価なことなど原因は様々。
+        身体とお金のことを考え貴方もこれを期に減酒、減煙してみませんか？</h4>
+      </p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="b-example-divider"></div>
+  <img class="d-block mx-auto mb-4" src="{% static 'board.png' %}" alt="" width="50%" height="">
+  <div class="px-4 pt-5 my-5 text-center">
+ 
+    <h1 class="display-4 fw-bold">掲示板でお互いを鼓舞しよう</h1>
+    <div class="col-lg-6 mx-auto">
+      <h4 class="mb-4">掲示板機能を使ってお互いに励ましあったり情報共有しましょう！</h4>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+          </div>
+    </div>
+  </div>
+
+
+
+  <div class="px-4 pt-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="{% static 'money.png' %}" alt="" width="30%" height="">
+    <h1 class="display-4 fw-bold">マイページで累計節約金額を眺めよう！</h1>
+    <div class="col-lg-6 mx-auto">
+      <h4 class="mb-4">お酒と煙草の累計節約金額を閲覧可能です。どんどん貯めて更なる金銭的余裕を目指そう！</h4>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+            </div>
+    </div>
+  </div>
+ 
+ 
+
+  
+ 
+
+
+  <div class="b-example-divider"></div>
+
+  <div class="container col-xl-10 col-xxl-8 px-4 py-5　mb-5">
+    <div class="row align-items-center g-lg-5 py-5">
+      <div class="col-lg-7 text-center text-lg-start">
+        <h1 class="display-3 fw-bold lh-1 mb-3">ランキング機能で高め合おう</h1>
+        <h4 class="col-lg-10 fs-4">ユーザーの節約金額をランキング化してあります。お互いに高みを目指そう！</h4>
+      </div>
+      <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
+        <img class="d-block mx-auto mb-4" src="{% static 'ranking.jpg' %}" alt="" width="70%" height="">
+    </div>
+    </div>
+  </div>
+  <div class="b-example-divider"></div>
+
+
+
+  <div class="b-example-divider"></div>
+
+  <div class="bg-primary text-secondary px-4 py- text-center">
+    <div class="py-5">
+      <h1 class="display-5 fw-bold text-white">早速始める！</h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="fs-5 mb-4"></p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <a type="button" href="{% url 'stsnsapp:signup' %}" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">サインアップ</a>
+          <a type="button" href="{% url 'stsnsapp:login' %}" class="btn btn-outline-light btn-lg px-4">ログイン</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="b-example-divider mb-0"></div>
+</main>
+
+
+    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+
+{% endblock %}

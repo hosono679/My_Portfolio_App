@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="alert alert-primary" role="alert">
+    <h3>掲示板</h3>
+</div>
+
+<div class="container">
+<div class="alert alert-success" role="alert">
+    <p>タイトル{{object.title}}</p>
+    <p>本文{{object.content}}</p>
+    <p>投稿者{{object.author}}</p>
+    <a href="{% url 'stsnsapp:good' object.pk %}" class="btn btn-primary btn-lg">いいね</a>
+    {% if can_delete == "success" %}
+    <a href="{% url 'stsnsapp:delete' object.pk  %}" class="btn btn-primary btn-lg">削除する</a>
+    {% else %}
+    <h9>[削除は作成したユーザーのみ行えます]</h9>
+    {% endif %}
+  </div>
+  </div>
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class=" m-5">削除します。本当によろしいですか？</h1>
+
+<div class="container mt-4">
+
+<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+
+<input type="submit" value="削除する" class="p-3 m-5">
+</form>
+</div>
+
+</form>
+{% endblock content %}
