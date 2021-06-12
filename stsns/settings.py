@@ -15,10 +15,12 @@ import os
 import dj_database_url
 import sys
 import environ
+from socket import gethostname
+import django_heroku
+
 
 
 BASE_DIR = environ.Path(__file__) - 2
-
 env = environ.Env()
 
 READ_ENV_FILE = env.bool('DJANGO_READ_ENV_FILE', default=True)
@@ -26,18 +28,41 @@ if READ_ENV_FILE:
     env_file = str(BASE_DIR.path('.env'))
     env.read_env(env_file)
 
-SECRET_KEY = env.read_env('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
+ALLOWED_HOSTS = ["*"]
 
+hostname = gethostname()
 
-DATABASES = { 'default': {
- 'ENGINE': 'ango.db.backends.postgresql_psycopg2',
- 'NAME': 'myproject',
- 'USER': 'myprojectuser',
- 'PASSWORD': 'password',
- 'HOST': 'localhost',
- 'PORT': '',
- }
-}
+if "COMPUTER-NAME" in hostname:
+    # デバッグ環境
+    DEBUG = True 
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+    ALLOWED_HOSTS = ['*'] 
+else:
+    # 本番環境
+    DEBUG = False
+    DATABASES = { 'default': {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'dep6t1686mad06',
+    'USER': 'yhrhdzwdcelghc',
+    'PASSWORD': '6866297a376d70ebb8c4e4772092fe4a9d2aa48e507659e4d8918bada5305e04',
+    'HOST': 'ec2-34-193-113-223.compute-1.amazonaws.com',
+    'PORT': '5432',
+    }
+    }
+
+    # DB設定
+    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+    db_from_env = dj_database_url.config()
+    DATABASES = {
+        'default': dj_database_url.config()
+    }
+    ALLOWED_HOSTS = ['*']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -46,7 +71,7 @@ DATABASES = { 'default': {
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+
 
 
 # Application definition
@@ -71,6 +96,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'stsns.urls'
