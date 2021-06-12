@@ -19,6 +19,7 @@ from socket import gethostname
 import django_heroku
 
 
+import dj_database_url
 
 BASE_DIR = environ.Path(__file__) - 2
 env = environ.Env()
@@ -57,12 +58,15 @@ else:
     }
 
     # DB設定
-    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-    db_from_env = dj_database_url.config()
-    DATABASES = {
-        'default': dj_database_url.config()
-    }
-    ALLOWED_HOSTS = ['*']
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+db_from_env = dj_database_url.config()
+DATABASES = {
+    'default': dj_database_url.config()
+}
+ALLOWED_HOSTS = ['*']
+
+DATABASES['default'] = dj_database_url.config(default='sqlite://db/sqlite3.db')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
