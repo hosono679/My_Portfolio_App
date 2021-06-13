@@ -17,10 +17,8 @@ import sys
 import environ
 from socket import gethostname
 import django_heroku
-
-
 import dj_database_url
-
+import socket
 BASE_DIR = environ.Path(__file__) - 2
 env = environ.Env()
 
@@ -32,11 +30,11 @@ if READ_ENV_FILE:
 SECRET_KEY = env('SECRET_KEY')
 ALLOWED_HOSTS = ["*"]
 
-hostname = gethostname()
+hostname = socket.gethostname()
 
 if "COMPUTER-NAME" in hostname:
     # デバッグ環境
-    DEBUG = True 
+    DEBUG = True
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -46,7 +44,7 @@ if "COMPUTER-NAME" in hostname:
     ALLOWED_HOSTS = ['*'] 
 else:
     # 本番環境
-    DEBUG = False
+    DEBUG = True
     DATABASES = { 'default': {
     'ENGINE': 'django.db.backends.postgresql_psycopg2',
     'NAME': 'dep6t1686mad06',
@@ -64,7 +62,6 @@ db_from_env = dj_database_url.config()
 DATABASES = {
     'default': dj_database_url.config()
 }
-ALLOWED_HOSTS = ['*']
 
 DATABASES['default'] = dj_database_url.config(default='sqlite://db/sqlite3.db')
 
@@ -108,7 +105,7 @@ ROOT_URLCONF = 'stsns.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR + "/templates"],
+        'DIRS': [BASE_DIR +"templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
