@@ -44,7 +44,7 @@ if "COMPUTER-NAME" in hostname:
     ALLOWED_HOSTS = ['*'] 
 else:
     # 本番環境
-    DEBUG = True
+    DEBUG = False
     DATABASES = { 'default': {
     'ENGINE': 'django.db.backends.postgresql_psycopg2',
     'NAME': 'dep6t1686mad06',
