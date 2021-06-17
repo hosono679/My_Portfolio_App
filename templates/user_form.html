@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-<!-- コンテンツ -->
 {% block content %}
 <div class="container">
   <div class="col-md-6 offset-md-3">
@@ -20,7 +19,6 @@
             </div>
           {% endfor %}
           {% csrf_token %}
-          <!-- ボタン -->
           <button type="button" class="btn btn-outline-secondary btn-lg btn-block mt-5 " pad onclick="history.back()">キャンセル</button>
           <button type="submit" class="btn btn-success btn-lg btn-block mt-5 " >{{ process_name }}</button>
         </form>
